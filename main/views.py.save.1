@@ -1,0 +1,95 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+import json
+import os
+import datetime
+from pywws import conversions
+
+from django.shortcuts import render
+
+CONDITIONSFILE = '/home/pi/weather/results/json_latest.txt'
+HEATERFILE = '/home/pi/weather/results/heater.txt'
+
+def mod_date(filename):
+    t = os.path.getmtime(filename)
+    return datetime.datetime.fromtimestamp(t)
+
+
+def index(request):
+    try:
+        with open(CONDITIONSFILE) as f:
+            data = json.load(f)
+
+        data[0]['TempOut'] = round(conversions.temp_f(data[0]['TempOut']), 1)
+        data[1]['TempOut'] = round(conversions.temp_f(data[1]['TempOut']), 1)
+
+        data[0]['FeelsLike'] = round(conversions.temp_f(data[0]['FeelsLike']), 1)
+        data[1]['FeelsLike'] = round(conversions.temp_f(data[1]['FeelsLike']), 1)
+    
+        data[0]['AbsPressure'] = conversions.pressure_inhg(data[0]['AbsPressure'] + 281)
+        data[1]['AbsPressure'] = conversions.pressure_inhg(data[1]['AbsPressure'] + 281)
+        deltapress = round(data[1]['AbsPressure']-data[0]['AbsPressure'], 3)
+        data[1]['AbsPressure'] = round(data[1]['AbsPressure'], 3)
+
+        data[1]['WindAvg'] = round(conversions.wind_mph(data[1]['WindAvg']), 1)
+        data[1]['WindGust'] = round(conversions.wind_mph(data[1]['WindGust']), 1)
+
+        data[1]['Rain'] = round(conversions.rain_inch(data[1]['Rain']), 2)
+
+
+        deltatemp = round(data[1]['TempOut']-data[0]['TempOut'], 2)
+        deltahum = data[1]['HumidityOut']-data[0]['HumidityOut']
+    except:
+        
+
+
+    if float(deltatemp) > 0.0:
+        deltatemp = str('+' + str(deltatemp))
+    if float(deltahum) > 0.0:
+        deltahum = str('+' + str(deltahum))
+    if float(deltapress) > 0.0:
+        deltapress = str('+' + str(deltapress))
+
+    mod = datetime.datetime.now()-mod_date(HEATERFILE)
+
+    with open(HEATERFILE) as f:
+        heater = f.read()
+        if str(heater) == 'ON\n':
+            clr = 'c00'
+        else:
+            clr = '00d'
+
+    context = {
+        'data': data[1],
+        'deltatemp': deltatemp,
+        'deltahum': deltahum,
+        'deltapress': deltapress,
+        'deltatime': data[0]['Time'],
+        'heater': heater,
+        'heatermod': round(mod.total_seconds()/60, 1),
+        'clr': clr,
+        'page': 'Bear Weather Report',
+    }
+    return render(request, 'main/index.html', context)
+
+def webcam(request):
+
+    context = {
+        'clar': datetime.datetime.now().strftime('%Y%m%d'),        
+        'page': 'Webcam',
+    }
+    return render(request, 'main/webcam.html', context)
+
+def about(request):
+
+    context = {
+        'page': 'About',
+    }
+    return render(request, 'main/about.html', context)
+
+def history(request):
+
+    context = {
+        'page': 'Weather History',
+    }
+    return render(request, 'main/history.html', context)

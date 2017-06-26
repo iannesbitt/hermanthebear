@@ -1,0 +1,39 @@
+{% load staticfiles %}
+
+<!DOCTYPE HTML>
+<!-- Copyright Ian Nesbitt 2017, coded in Python and powered by Django. -->
+<!-- Go Ephs -->
+<html lang='en-us'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <head>
+        <title>{{ page }} - Herman the Bear</title>
+    </head>
+    <body>
+        <div id='header'>
+            <div id='splash'>
+                <img id='splashimg' src="{% static 'img/herman_' %}{{ season }}.jpg">
+            </div>
+            <div id='name'>
+                <h5><a style='color:black; text-decoration:none;' href='/'>Live weather from the Breckenridge basin</a></h5>
+                <h1>{{ page }}</h1>
+            </div>
+        </div>
+        <div id='body'>
+            <div class='sidebar'>
+                {% include 'main/sidebar.html' %}
+            </div>
+            <div class='content'>
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+        <div id='footer'>
+            <p><small>© {% now "Y" %} Ian Nesbitt{% ifequal user.is_staff True %} -- <a href='/djadmin'>Admin</a>{% endifequal %}</small></p>
+        </div>
+        
+    </body>
+    {% ifequal user.is_staff False %}
+        {% include 'main/analytics.html' %}
+    {% endifequal %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</html>

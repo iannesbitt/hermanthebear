@@ -1,0 +1,23 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+<h2>Notes</h2>
+<p>Snow depth and water temperature sensors have yet to be calibrated.</p><br>
+
+<h2>Installation details</h2>
+<p>Installed: June 7, 2017</p>
+<h4>Features:</h4>
+<li>Personal weather station (Ambient Weather WS-2095)</li>
+<li>Custom-fitted heated precipitation gage (Flex Watt 3" reptile heating tape)</li>
+<li>Snow depth sensor (MaxBotix MB7364 HRXL-MaxSonar-WRS ultrasonic rangefinder)</li>
+<li>Water temperature probe (Adafruit DS18B20 waterproof temperature sensor)</li>
+<li>Webcam (ELP Megapixel Dome USB camera)</li>
+
+<p>Managed with raspberrypi and pywws and hosted with django.</p>
+
+<p style='text-align:center'><img src='{% static "img/SW.jpg" %}'><br>
+Post-installation photo looking southwest</p>
+
+
+{% endblock content %}

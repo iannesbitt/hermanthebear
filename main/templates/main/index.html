@@ -1,0 +1,76 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<h2>Current conditions</h2><br>
+
+Measurement time:<br>
+{{ data.Date }}
+<table>
+    <tr>
+        <th>Temperature</th>
+        <th>Humidity</th>
+        <th>Feels like</th>
+        <th>Pressure</th>
+    </tr>
+    <tr>
+        <td>{{ data.TempOut }} ºF</td>
+        <td>{{ data.HumidityOut }} %</td>
+        <td>{{ data.FeelsLike }} ºF</td>
+        <td>{{ data.AbsPressure }} inHg</td>
+    </tr>
+    <tr>
+        <th>Wind speed</th>
+        <th>Wind gust</th>
+        <th>Wind</th>
+        <th>1hr precip</th>
+    </tr>
+    <tr>
+        <td>{{ data.WindAvg }} mph</td>
+        <td>{{ data.WindGust }} mph</td>
+        <td>{{ data.WindDirection }}</td>
+        <td>{{ data.Rain }} in</td>
+    </tr>
+    <tr>
+        <th>1hr Δ temp</th>
+        <th>1hr Δ humidity</th>
+        <th>1hr Δ pressure</th>
+        <th>Prev. time</th>
+    </tr>
+    <tr>
+        <td>{{ deltatemp }} ºF</td>
+        <td>{{ deltahum }} %</td>
+        <td>{{ deltapress }} inHg</td>
+        <td>{{ deltatime }}</td>
+    </tr>
+    <tr>
+        <th>Snowpack depth</th>
+        <th>1hr Δ snowpack</th>
+        <th>Water temp</th>
+        <th>Gage heater</th>
+    </tr>
+    <tr>
+        <td>{{ depth }} in</td>
+        <td>{{ deltadepth }} in</td>
+        <td>{{ jacuzzi }} ºF</td>
+        <td><font color="#{{ clr }}">{{ heater }}</font> <font size='0.6em'>{{ heatermod }} min ago</font></td>
+    </tr>
+
+
+</table>
+        
+<br><br>
+<div id='webcam'>
+    <img class='webcam-img' src="{% static 'img/webcam/image.jpg' %}"> 
+    <p></p>
+</div><br>
+
+<h3>24 hours</h3>
+<div class='plot'>
+    <img class='plot' src="{% static 'img/plots/24hrs.png' %}"> 
+    <p></p>
+</div><br>
+
+
+{% endblock content %}

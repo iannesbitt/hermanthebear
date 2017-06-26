@@ -1,0 +1,238 @@
+a {
+    text-decoration:	none;
+} a:link {
+    color:				#7f9ac6;
+} a:visited {
+    color:				#009;
+} a:hover, a:active {
+    color:				#99f;
+    text-decoration:	none;
+}
+
+html, body { height: 100%; }
+body {
+    margin:				0 0 0 0;
+    font-family:		Geneva, sans-serif;
+    font-weight:		300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin:				0;
+} h1, h2, h3, h4 {
+    font-family:		Geneva, sans-serif;
+} h5 {
+    font-family:		Times, serif;
+} h6 {
+    font-size:			1.25em;
+    font-weight:		400;
+}
+p {
+    text-align:			justify;
+}
+code {
+    font-family:		monospace;
+}
+strong {
+    font-family:		Geneva;
+    font-weight:		500;
+}
+li {
+    padding:			-30px;
+}
+
+table {
+    width:				100%;
+    border:				1px solid #ccc;
+    border-radius:		5px;
+} th {
+    background-color:	#ddd;
+    font-weight:		400;
+} td {
+} th, td {
+    max-width:			10%;
+    text-align:			center;
+}
+
+img {max-width:100%; height:auto}
+.centered {width:100%; text-align:center}
+.plot {width:100%; text-align:center;}
+
+#container {
+    position:			relative;
+} .top {
+    position:			absolute;
+    left:				0;
+    top:				30px;
+    width:				100%;
+    text-align:			center;
+    font-size:			18px;
+    color:				#fff;
+} img.shared {
+    opacity:			0.3;
+    filter:				alpha(opacity=30); /* For IE8 and earlier */
+}
+
+div#header {
+    position:			relative;
+    margin-left:		0;
+    margin-right:		0;
+} div#body {
+    padding:			30px 10%;
+} div#footer {
+    margin:				15px 10%;
+    float:				left;
+    width:				90%;
+} #splash, #name, #announcement {
+    display:			inline-block;
+} #splash {
+    width:				100%;
+    height:				auto;
+} #name {
+    padding:			1%;
+    position:			absolute;
+    bottom:				0;
+    background-color:	#fff;
+    opacity:			0.7;
+    filter: alpha(opacity=70); /* For IE8 and earlier */
+} #splashimg {
+    width:				100%;
+} #link-div {
+    padding:			15px 30px;
+} #social-div {
+    position:			absolute;
+    bottom:				10px;
+    width:				100%;
+    text-align:			center;
+} #social-icon {
+    margin:				0;
+} #social-icon:hover, #social-icon:active {
+    opacity:			0.5;
+    filter:				alpha(opacity=50); /* For IE8 and earlier */
+    background-color:	#fff;
+    border-radius:		3px;
+}
+
+.content, .sidebar {
+	position:			relative;
+    border:				1px solid #7f9ac6;
+    border-radius:		5px;
+    display:			inline-block;
+} .content {
+    float:				left;
+    height:				100%;
+    width:				70%;
+    padding:			15px 30px;
+} .sidebar {
+    float:				right;
+    width:				20%;
+} .spacer {
+    width:				100%;
+    float:				left;
+    padding-top:		160px;
+	display:			inline-block;
+} .splash {
+    width:				30%;
+    display:			block;
+    float:				left;
+    margin:				0 15px 5px 0;
+} .img {
+    width:				100%;
+} .p {
+    width:				100%;
+    display:			block;
+}
+
+
+#webcam {
+    width:				100%;
+    text-align:			center;
+} .webcam-img {
+    width:				640px;
+}
+
+.date {
+    color:				#828282;
+}
+
+.post {
+    margin-bottom:		30px;
+}
+
+@media only screen and (max-width : 1174px) {
+    .webcam-img {
+        max-width:				100%;
+    }
+}
+
+@media only screen and (max-width : 999px) {
+    .content {
+    }
+
+    #splash {
+        width:				12%;
+        height:				12%;
+    }
+}
+
+@media only screen and (min-width : 849px) {
+    .meteoplug {
+    }
+    iframe {
+        max-width: 100%;
+    }
+}
+
+@media only screen and (max-width : 849px) {
+    img.meteoplug {
+        max-width: 80%;
+    }
+    iframe, div.graph {
+        display: none;
+    }
+    h1 {
+        font-size: 5.0vw;
+    }
+    h5 {
+        font-size: 2vw;
+    }
+    p {
+        font-size: 3.5vmin;
+    }
+
+    h1, h2, h3, h4 {
+        font-weight:		900;
+    }
+
+    div#header {
+        margin-left:		0;
+        margin-right:		0;
+    } div#body {
+        padding:			5px 15px;
+        margin:				5px 0%;
+        border-radius:		5px;
+        height:				100%;
+    } div#footer {
+        margin-left:		6%;
+        margin-right:		6%;
+    } #splash {
+        width:				100%;
+        height:				auto;
+    } #name {
+        padding:			2%;
+    }
+    
+    .content, .sidebar {
+        height:				auto;
+        padding:			25px 20px;
+        margin:				10px -1.5%;
+    } .content {
+        width:				90%;
+    } .sidebar {
+        width:				90%;
+    } .spacer {
+        padding-top:		140px;
+    } #social-div {
+        margin-left:		-20px;
+    }
+
+}

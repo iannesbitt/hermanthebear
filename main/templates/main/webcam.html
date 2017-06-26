@@ -1,0 +1,28 @@
+{% extends 'main/base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<h2>Current image</h2><br>
+
+<div id='webcam'>
+    <img class='webcam-img' src="{% static 'img/webcam/image.jpg' %}"> 
+    <p>Camera faces eastsoutheast. Primary instrument array stands 9 feet above ground. Snow depth sensor is about 4 feet above ground but has yet to be calibrated.</p>
+</div><br>
+
+<h3>Today's time lapse - <font style='font-size:0.7em'>updated every 10 minutes (<a href='/media/today.mp4' download>download</a>)</font></h3>
+<div id='timelapse'>
+    <video class='center' width='100%' controls poster='/media/todaycover.jpg?{{ clar }}'>
+        <source src='/media/today.mp4?{{ clar }}' type='video/mp4'>
+        If you are reading this, your browser does not support embedded video. Please try another browser to view the timelapse.
+    </video>
+</div>
+<h3>Yesterday's time lapse - <font style='font-size:0.7em'>updated daily (<a href='/media/yesterday.mp4' download>download</a>)</font></h3>
+<div id='timelapse'>
+    <video class='center' width='100%' controls poster='/media/cover.jpg?{{ clar }}'>
+        <source src='/media/yesterday.mp4?{{ clar }}' type='video/mp4'>
+        If you are reading this, your browser does not support embedded video. Please try another browser to view the timelapse.
+    </video>
+</div>
+
+{% endblock content %}
