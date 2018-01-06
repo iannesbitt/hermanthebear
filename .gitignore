@@ -1,2 +1,6 @@
 db.sqlite3
 .pyc
+media/today.mp4
+media/todaycover.jpg
+media/yesterday.mp4
+media/cover.jpg

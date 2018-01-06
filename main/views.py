@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import json
 import os
 import datetime
+import pytz
 from pywws import conversions
 
 from django.shortcuts import render
@@ -12,6 +13,17 @@ CONDITIONSNOWBKP = '/home/pi/weather/results/json_latest_bkp.txt'
 CONDITIONSHR = '/home/pi/weather/results/json_hour.txt'
 CONDITIONSHRBKP = '/home/pi/weather/results/json_hour_bkp.txt'
 HEATERFILE = '/home/pi/weather/results/heater.txt'
+WATERFILE = '/home/pi/weather/results/water.json'
+SNOWDEPTH = '/home/pi/weather/results/snowdepth'
+DEPTH_CALIB=1635.
+
+def snowdepth(day):
+    file = os.path.join(SNOWDEPTH, day.strftime('%Y-%m-%d') + '.csv')
+    yday = os.path.join(SNOWDEPTH, (day - datetime.timedelta(days=1)).strftime('%Y-%m-%d') + '.txt')
+    with open(file, 'r') as f:
+        time, cm = f.readlines()[-1].split(',')
+        time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
+    return time, cm
 
 def get_season():
     now = datetime.datetime.now()
@@ -87,10 +99,17 @@ def index(request):
 
     with open(HEATERFILE) as f:
         heater = f.read()
-        if str(heater) == 'ON\n':
-            clr = 'c00'
-        else:
+        if str(heater) == 'OFF\n':
             clr = '00d'
+        else:
+            clr = 'c00'
+
+    with open(WATERFILE) as f:
+        water = json.load(f)
+
+    last_depth = snowdepth(now)
+    depth = conversions.rain_inch(DEPTH_CALIB - float(last_depth[1]))
+    depthmod = now - last_depth[0]
 
     context = {
         'data': data1[0],
@@ -99,7 +118,10 @@ def index(request):
         'deltapress': deltapress,
         'deltatime': data0[0]['Time'],
         'heater': heater,
+        'watertemp': water['temperature'],
         'heatermod': round(mod.total_seconds()/60, 1),
+        'depth': round(depth, 1),
+        'depthmod': round(depthmod.total_seconds()/60, 1),
         'clr': clr,
         'season': get_season(),
         'page': 'Bear Weather Report',
