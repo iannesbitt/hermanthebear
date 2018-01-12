@@ -5,6 +5,7 @@ import os
 import datetime
 import pytz
 from pywws import conversions
+import pandas as pd
 
 from django.shortcuts import render
 
@@ -15,15 +16,22 @@ CONDITIONSHRBKP = '/home/pi/weather/results/json_hour_bkp.txt'
 HEATERFILE = '/home/pi/weather/results/heater.txt'
 WATERFILE = '/home/pi/weather/results/water.json'
 SNOWDEPTH = '/home/pi/weather/results/snowdepth'
-DEPTH_CALIB=1635.
+DEPTH_CALIB=1736.
 
 def snowdepth(day):
     file = os.path.join(SNOWDEPTH, day.strftime('%Y-%m-%d') + '.csv')
-    yday = os.path.join(SNOWDEPTH, (day - datetime.timedelta(days=1)).strftime('%Y-%m-%d') + '.txt')
+    depthfile = os.path.join(SNOWDEPTH, 'snow.txt')
+    depthfile24h = os.path.join(SNOWDEPTH, '24hsnow.txt')
+
     with open(file, 'r') as f:
-        time, cm = f.readlines()[-1].split(',')
+        time, mm = f.readlines()[-1].split(',')
         time = datetime.datetime.strptime(time, '%Y-%m-%d %H:%M:%S')
-    return time, cm
+    with open(depthfile, 'r') as f:
+        mm = float(f.read().rstrip())
+    with open(depthfile24h, 'r') as f:
+        mm24h = float(f.read().rstrip())
+
+    return time, mm, mm24h
 
 def get_season():
     now = datetime.datetime.now()
@@ -107,9 +115,22 @@ def index(request):
     with open(WATERFILE) as f:
         water = json.load(f)
 
-    last_depth = snowdepth(now)
-    depth = conversions.rain_inch(DEPTH_CALIB - float(last_depth[1]))
-    depthmod = now - last_depth[0]
+    deltadir = ''
+
+    try:
+        last_depth = snowdepth(now)
+        depth = last_depth[1]
+        deltadepth = depth - last_depth[2]
+        depthmod = now - last_depth[0]
+        depth = round(depth, 1)
+        deltadepth = round(deltadepth, 1)
+        depthmod = round(depthmod.total_seconds()/60., 1)
+        if deltadepth > 0.:
+            deltadir = '+'
+    except:
+        depth = 'n/a'
+        depthmod = ''
+        deltadepth = 'n/a'
 
     context = {
         'data': data1[0],
@@ -120,8 +141,10 @@ def index(request):
         'heater': heater,
         'watertemp': water['temperature'],
         'heatermod': round(mod.total_seconds()/60, 1),
-        'depth': round(depth, 1),
-        'depthmod': round(depthmod.total_seconds()/60, 1),
+        'depth': depth,
+        'deltadepth': deltadepth,
+        'deltadir': deltadir,
+        'depthmod': depthmod,
         'clr': clr,
         'season': get_season(),
         'page': 'Bear Weather Report',
@@ -152,3 +175,9 @@ def history(request):
         'page': 'Weather History',
     }
     return render(request, 'main/history.html', context)
+
+#def snow(request):
+#    context = {
+#        'season': get_season(),
+#        'page': 'Weather History',
+#    }

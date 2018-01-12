@@ -3,8 +3,31 @@
 
 {% block content %}
 
-<h2>Snow depth</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<h2>Current and historical snow depth</h2>
+<p>Graphs are smoothed by a moving median method, as snow depth measurements can spike due to wind, warm/cold air pockets, and Swiss Shepherds running by.</p>
 
+<h3>24 hours</h3>
+<div class='plot'>
+    <img class='plot' src="{% static 'img/plots/snowdepth/depth24h.png' %}">
+    <p></p>
+</div><br>
+
+<h3>7 days</h3>
+<div class='plot'>
+    <img class='plot' src="{% static 'img/plots/snowdepth/depth7d.png' %}">
+    <p></p>
+</div><br>
+
+<h3>30 days</h3>
+<div class='plot'>
+    <img class='plot' src="{% static 'img/plots/snowdepth/depth30d.png' %}">
+    <p></p>
+</div><br>
+
+<h3>Long-term snowpack</h3>
+<div class='plot'>
+    <img class='plot' src="{% static 'img/plots/snowdepth/depth90d.png' %}">
+    <p></p>
+</div><br>
 
 {% endblock content %}
