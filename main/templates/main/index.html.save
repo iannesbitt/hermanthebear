@@ -53,7 +53,7 @@ Measurement time:<br>
     <tr>
         <td>{{ depth }} in <font size='0.5em'>{{ depthmod }} min ago</font></td>
         <td>{{ deltadir }}{{ deltadepth }} in</td>
-        <td><font color='#{{ watercolor }}'>{{ watertemp }}</font> ºF <font size='0.5em' color='#{{ w_age_color }}'>{{ water_m_age }} min ago</font></td>
+        <td><font color='#ccc'>{{ watertemp }} ºF</font></td>
         <td><font color="#{{ clr }}">{{ heater }}</font> <font size='0.5em'>{{ heatermod }} min ago</font></td>
     </tr>
 
@@ -72,8 +72,7 @@ Measurement time:<br>
     <p></p>
 </div><br>
 
-<h3>Snowpack</h3>
-<div class='plot'>
+<h3>Snowpack</h3><div class='plot'>
     <img class='plot' src="{% static 'img/plots/snowdepth/depth24h.png' %}?{% now 'YmdHi' %}">
     <p></p>
 </div><br>

@@ -6,25 +6,25 @@
 <h2>Historical data</h2>
 <h3>24 hours</h3>
 <div class='plot'>
-    <img class='plot' src="{% static 'img/plots/24hrs.png' %}"> 
+    <img class='plot' src="{% static 'img/plots/24hrs.png' %}?{% now 'YmdHi' %}"> 
     <p></p>
 </div><br>
 
 <h3>24 hour wind rose</h3>
 <div class='plot'>
-    <img class='plot' src="{% static 'img/plots/rose_24hrs.png' %}"> 
+    <img class='plot' src="{% static 'img/plots/rose_24hrs.png' %}?{% now 'YmdHi' %}"> 
     <p></p>
 </div><br>
 
 <h3>7 days</h3>
 <div class='plot'>
-    <img class='plot' src="{% static 'img/plots/7days.png' %}"> 
+    <img class='plot' src="{% static 'img/plots/7days.png' %}?{% now 'YmdHi' %}"> 
     <p></p>
 </div><br>
 
 <h3>28 days</h3>
 <div class='plot'>
-    <img class='plot' src="{% static 'img/plots/28days.png' %}"> 
+    <img class='plot' src="{% static 'img/plots/28days.png' %}?{% now 'YmdHi' %}"> 
     <p></p>
 </div>
 

@@ -6,7 +6,7 @@
 <h2>Current image</h2><br>
 
 <div id='webcam'>
-    <img class='webcam-img' src="{% static 'img/webcam/image.jpg' %}"> 
+    <img class='webcam-img' src="{% static 'img/webcam/image.jpg' %}?{% now 'YmdHi' %}"> 
     <p>Camera faces eastsoutheast. Primary instrument array stands 9 feet above ground. Snow depth sensor is about 4 feet above ground but has yet to be calibrated.</p>
 </div><br>
 

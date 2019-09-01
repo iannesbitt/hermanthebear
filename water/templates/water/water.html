@@ -4,6 +4,21 @@
 {% block content %}
 
 <h2>Water temperature</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<p>Hot tub temperature is measured and reported every 5 minutes.</p>
+
+<h3>30 days</h3>
+<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/821589/charts/1?bgcolor=%23ffffff&color=%23d62020&days=30&dynamic=true&type=line&yaxismax=40&yaxismin=5"></iframe>
+
+<h3>7 days</h3>
+<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/821589/charts/1?bgcolor=%23ffffff&color=%23d62020&days=7&dynamic=true&type=line&yaxismax=40&yaxismin=5"></iframe>
+
+<h3>3 hours, text format</h3>
+Most recent first
+<table>
+    <tr><th>Time</th><th>Temperature</th></tr>
+    <!--{% for dp in water %} -->
+    <tr><td>{{ dp.created_at }}</td><td>{{ dp.field1 }} ºF</td></tr>
+    <!--{% endfor %} -->
+</table>
 
 {% endblock content %}

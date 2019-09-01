@@ -112,8 +112,26 @@ def index(request):
         else:
             clr = 'c00'
 
-    with open(WATERFILE) as f:
-        water = json.load(f)
+    try:
+        with open(WATERFILE) as f:
+            water = json.load(f)
+            watertemp = round(((float(water['feeds'][-1]['field1'].split('\r')[0])*(9/5.))+32), 1)
+            watertime = datetime.datetime.strptime(water['feeds'][-1]['created_at'], '%Y-%m-%dT%H:%M:%SZ')
+            water_m_age = round((datetime.datetime.utcnow() - watertime).total_seconds() / 60, 1)
+            if water_m_age > 10:
+                w_age_color = 'f00'
+            else:
+                w_age_color = 'ccc'
+            if watertemp > 85:
+                watercolor = 'f00'
+            elif (watertemp < 85) and (watertemp > 65):
+                watercolor = '000'
+            else:
+                watercolor = '00b'
+    except:
+        watertemp = 'n/a'
+        watertime = datetime(2018, 1, 1, 0, 0)
+        watercolor = 'f00'
 
     deltadir = ''
 
@@ -139,7 +157,10 @@ def index(request):
         'deltapress': deltapress,
         'deltatime': data0[0]['Time'],
         'heater': heater,
-        'watertemp': water['temperature'],
+        'watertemp': watertemp,
+        'watercolor': watercolor,
+        'water_m_age': water_m_age,
+        'w_age_color': w_age_color,
         'heatermod': round(mod.total_seconds()/60, 1),
         'depth': depth,
         'deltadepth': deltadepth,

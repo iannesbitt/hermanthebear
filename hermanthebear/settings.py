@@ -25,7 +25,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['hermanthebear.mooo.com', '71.205.217.125', '127.0.0.1', '10.0.0.110', 'raspberrypi.local',]
+ALLOWED_HOSTS = ['hermanthebear.mooo.com', 'hermanthebear.my.to', 'hermanthebear.weatherlab.xyz', '71.205.217.125', '127.0.0.1', '10.0.0.110', 'raspberrypi.local',]
 
 # Production security settings
 if DEBUG == False:
